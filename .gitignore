@@ -1,1 +1,10 @@
 .DS_Store
+
+# editor / tool backups
+*.bak
+*.bak.*
+*.backup*
+*~
+
+# machine-local overrides are never tracked
+*.local

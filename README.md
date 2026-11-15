@@ -1,30 +1,127 @@
-# Dotfiles Repo
+# DotConfig
 
-This repository contains my personal dotfiles, managed with **GNU Stow** for easy deployment across multiple machines.
+My macOS dotfiles, managed with [GNU Stow](https://www.gnu.org/software/stow/).
+One script sets up a new machine. Every config lives in this repo, and your home folder only holds symlinks to it.
 
-## 🔧 Features
+## What's in here
 
-- Organized dotfiles for shell, editor, and system configurations
-- Uses **GNU Stow** for simple symlink management
-- Easy setup and portability
+| Package     | Tool                                    | Links to                                 |
+| ----------- | --------------------------------------- | ---------------------------------------- |
+| `zsh`       | zsh + oh-my-zsh + Powerlevel10k         | `~/.zshrc`, `~/.zprofile`, `~/.p10k.zsh` |
+| `tmux`      | tmux (prefix `Ctrl-s`, nord theme)      | `~/.tmux.conf`                           |
+| `nvim`      | Neovim ([LazyVim](https://lazyvim.org)) | `~/.config/nvim/`                        |
+| `ghostty`   | Ghostty terminal + Catppuccin Midnight  | `~/.config/ghostty/`                     |
+| `aerospace` | AeroSpace tiling window manager         | `~/.aerospace.toml`                      |
+| `zed`       | Zed editor                              | `~/.config/zed/settings.json`            |
+| `git`       | git (name/email stay in untracked `~/.gitconfig.local`) | `~/.gitconfig`, `~/.gitignore_global` |
+| `fastfetch` | fastfetch                               | `~/.config/fastfetch/`                   |
 
-## 📦 Included Configs
+Other files:
 
-- **Shell**: zsh configuration
-- **Editor**: Neovim setup
-- **Terminal**: tmux, ghostty, wezterm
-- **Tiling WM (for mac)**: Aerospace
-- **Tiling WM (for linux)**: Hyprland
+- `Brewfile` lists every Homebrew formula, cask, font and app the setup uses.
+- `install.sh` does the whole setup: dependencies, frameworks, backups and symlinks.
 
-## 🚀 Installation
+Neovim, Ghostty and the T3 Code app all use the same **Catppuccin Midnight** palette, a slightly darker Catppuccin Mocha.
 
-1. Clone the repository:
-2. Install **GNU Stow** (if not installed):
-   ```bash
-   sudo apt install stow  # Debian/Ubuntu
-   brew install stow      # macOS
-   ```
-3. Stow the configurations (example for zsh and git):
-   ```bash
-   stow zsh
-   ```
+## Setting up a new Mac
+
+```bash
+xcode-select --install                 # git + compilers (skip if already installed)
+git clone https://github.com/Abstract-Dex/DotConfig.git ~/DotConfig
+cd ~/DotConfig
+./install.sh
+```
+
+Then open a new terminal. That's it.
+
+### What `install.sh` does
+
+1. **Homebrew**: installs it if it's missing, then runs `brew bundle` against the `Brewfile`.
+2. **zsh framework**: clones oh-my-zsh, Powerlevel10k and zsh-autosuggestions if they're missing.
+3. **Backups**: any existing file or folder a link would replace is moved to `~/.dotfiles-backup/<timestamp>/`. Nothing is deleted.
+4. **Links**: creates `~/.config`, then runs `stow` for each package.
+5. **Ghostty fix**: moves aside `~/Library/Application Support/com.mitchellh.ghostty/config` if it exists. On macOS that file overrides `~/.config/ghostty`.
+
+You can run it again at any time. Anything already linked is left alone.
+
+```bash
+./install.sh --dry-run        # show what would happen, change nothing
+./install.sh nvim tmux        # only (re)link these packages
+./install.sh --no-brew        # skip Homebrew (e.g. on Linux, or to save time)
+./install.sh --help
+```
+
+### First launch
+
+| Tool      | What happens the first time                                                          |
+| --------- | ------------------------------------------------------------------------------------ |
+| tmux      | Clones TPM, installs the plugins and reloads. Takes a few seconds.                   |
+| Neovim    | LazyVim installs its plugins. Run `:Lazy restore` to match `lazy-lock.json` exactly. |
+| zsh       | Powerlevel10k uses the committed `~/.p10k.zsh`. Run `p10k configure` to redo it.     |
+| AeroSpace | Open it once and grant Accessibility permission (it starts at login after that).     |
+| Ghostty   | Picks up`JetBrains Mono` + the `catppuccin-midnight` theme automatically.            |
+
+### Linux
+
+Everything except `aerospace` (macOS only) works on Linux too. Install `stow`, `git`, `zsh`, `tmux`, `neovim`, `fzf`, `zoxide`, `ripgrep` and `fd` with your package manager, then run:
+
+```bash
+./install.sh --no-brew zsh tmux nvim git fastfetch
+```
+
+## Day-to-day
+
+**Editing a config.** Edit it where it normally lives, e.g. `nvim ~/.zshrc`. That file is a symlink, so you're editing the repo copy. Then commit:
+
+```bash
+cd ~/DotConfig && git add -A && git commit -m "tweak zsh" && git push
+```
+
+**Pulling changes onto another machine.**
+
+```bash
+cd ~/DotConfig && git pull && ./install.sh --no-brew
+```
+
+**Adding a new tool** (for example `lazygit`, whose config is at `~/.config/lazygit/config.yml`):
+
+```bash
+mkdir -p ~/DotConfig/lazygit/.config
+mv ~/.config/lazygit ~/DotConfig/lazygit/.config/
+```
+
+Then add `lazygit` to `ALL_PACKAGES` in `install.sh` and run `./install.sh lazygit`.
+A package's folder mirrors the paths under `$HOME`.
+
+**Removing a package's links.** `stow -D -d ~/DotConfig -t ~ <package>` removes the links and leaves the repo alone.
+
+**Updating the Brewfile.** Add or remove lines by hand. To see what's missing on the current machine, run `brew bundle check --verbose --file=~/DotConfig/Brewfile`.
+
+## Machine-specific settings (not tracked)
+
+Some things shouldn't go in a public repo: your git identity, secrets, work hosts, conda or other per-machine paths. Put them in these files, which are sourced or included automatically if they exist:
+
+- `~/.zshrc.local`: sourced at the end of `.zshrc`.
+- `~/.gitconfig.local`: included at the end of `.gitconfig`. **Your git name and email live here, not in the repo.** `install.sh` asks for them on first run. To create the file by hand:
+
+  ```ini
+  [user]
+  	name = Your Name
+  	email = you@example.com
+  ```
+
+  Tip: to keep your real address out of public commits too, use your GitHub no-reply email (*Settings → Emails*).
+
+**Zed:** `settings.json` is tracked, so any SSH connections you add in Zed are written into this repo. Check `git diff` before you commit.
+
+## How the links are laid out
+
+Stow links whole folders where it can, so `~/.config/nvim` and `~/.config/ghostty` are each one symlink into the repo. New files you create there, such as a new Neovim plugin spec, land in the repo automatically.
+
+Zed is the exception. It stores chats, prompts and other data next to its settings, so only `settings.json` is linked and that data stays out of git.
+
+## Troubleshooting
+
+- **`stow` reports a conflict.** Something not managed by stow is in the way. `./install.sh` backs these files up for you. If you run `stow` by hand, move the file first.
+- **The prompt shows boxes instead of icons.** Set your terminal font to _MesloLGS Nerd Font_, which the Brewfile installs.
+- **`brew bundle` fails for an app.** You probably installed that app outside Homebrew, and the warning is harmless. You can also delete the app and rerun the install to let Homebrew manage it.

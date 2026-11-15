@@ -1,0 +1,9 @@
+# Shared git settings. Your identity (name/email) lives in ~/.gitconfig.local,
+# which is NOT tracked — install.sh asks for it once on a new machine.
+[core]
+	excludesfile = ~/.gitignore_global
+[push]
+	autoSetupRemote = true
+
+[include]
+	path = ~/.gitconfig.local

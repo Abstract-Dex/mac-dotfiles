@@ -1,5 +1,0 @@
-theme = catppuccin-macchiato
-cursor-style = block
-cursor-style-blink = false
-shell-integration-features = no-cursor
-keybind = global:cmd+s=toggle_quick_terminal
