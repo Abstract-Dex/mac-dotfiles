@@ -1,6 +1,6 @@
 # Everything this setup needs on a fresh Mac.
-#   brew bundle --file=~/DotConfig/Brewfile          # install
-#   brew bundle check --file=~/DotConfig/Brewfile    # what's missing?
+#   brew bundle --file=~/mac-dotfiles/Brewfile          # install
+#   brew bundle check --file=~/mac-dotfiles/Brewfile    # what's missing?
 
 tap "nikitabobko/tap"
 

@@ -1,20 +1,20 @@
-# DotConfig
+# mac-dotfiles
 
 My macOS dotfiles, managed with [GNU Stow](https://www.gnu.org/software/stow/).
 One script sets up a new machine. Every config lives in this repo, and your home folder only holds symlinks to it.
 
 ## What's in here
 
-| Package     | Tool                                    | Links to                                 |
-| ----------- | --------------------------------------- | ---------------------------------------- |
-| `zsh`       | zsh + oh-my-zsh + Powerlevel10k         | `~/.zshrc`, `~/.zprofile`, `~/.p10k.zsh` |
-| `tmux`      | tmux (prefix `Ctrl-s`, nord theme)      | `~/.tmux.conf`                           |
-| `nvim`      | Neovim ([LazyVim](https://lazyvim.org)) | `~/.config/nvim/`                        |
-| `ghostty`   | Ghostty terminal + Catppuccin Midnight  | `~/.config/ghostty/`                     |
-| `aerospace` | AeroSpace tiling window manager         | `~/.aerospace.toml`                      |
-| `zed`       | Zed editor                              | `~/.config/zed/settings.json`            |
-| `git`       | git (name/email stay in untracked `~/.gitconfig.local`) | `~/.gitconfig`, `~/.gitignore_global` |
-| `fastfetch` | fastfetch                               | `~/.config/fastfetch/`                   |
+| Package     | Tool                                                    | Links to                                 |
+| ----------- | ------------------------------------------------------- | ---------------------------------------- |
+| `zsh`       | zsh + oh-my-zsh + Powerlevel10k                         | `~/.zshrc`, `~/.zprofile`, `~/.p10k.zsh` |
+| `tmux`      | tmux (prefix `Ctrl-s`, nord theme)                      | `~/.tmux.conf`                           |
+| `nvim`      | Neovim ([LazyVim](https://lazyvim.org))                 | `~/.config/nvim/`                        |
+| `ghostty`   | Ghostty terminal + Catppuccin Midnight                  | `~/.config/ghostty/`                     |
+| `aerospace` | AeroSpace tiling window manager                         | `~/.aerospace.toml`                      |
+| `zed`       | Zed editor                                              | `~/.config/zed/settings.json`            |
+| `git`       | git (name/email stay in untracked `~/.gitconfig.local`) | `~/.gitconfig`, `~/.gitignore_global`    |
+| `fastfetch` | fastfetch                                               | `~/.config/fastfetch/`                   |
 
 Other files:
 
@@ -27,12 +27,15 @@ Neovim, Ghostty and the T3 Code app all use the same **Catppuccin Midnight** pal
 
 ```bash
 xcode-select --install                 # git + compilers (skip if already installed)
-git clone https://github.com/Abstract-Dex/DotConfig.git ~/DotConfig
-cd ~/DotConfig
+git clone https://github.com/Abstract-Dex/mac-dotfiles.git ~/mac-dotfiles
+cd ~/mac-dotfiles
 ./install.sh
 ```
 
 Then open a new terminal. That's it.
+
+> **Pushing changes:** the HTTPS clone above can pull but not push, because GitHub doesn't accept passwords. Once the machine's SSH key is [added to GitHub](https://github.com/settings/keys), switch the remote to SSH:
+> `git remote set-url origin git@github.com:Abstract-Dex/mac-dotfiles.git`
 
 ### What `install.sh` does
 
@@ -74,28 +77,28 @@ Everything except `aerospace` (macOS only) works on Linux too. Install `stow`, `
 **Editing a config.** Edit it where it normally lives, e.g. `nvim ~/.zshrc`. That file is a symlink, so you're editing the repo copy. Then commit:
 
 ```bash
-cd ~/DotConfig && git add -A && git commit -m "tweak zsh" && git push
+cd ~/mac-dotfiles && git add -A && git commit -m "tweak zsh" && git push
 ```
 
 **Pulling changes onto another machine.**
 
 ```bash
-cd ~/DotConfig && git pull && ./install.sh --no-brew
+cd ~/mac-dotfiles && git pull && ./install.sh --no-brew
 ```
 
 **Adding a new tool** (for example `lazygit`, whose config is at `~/.config/lazygit/config.yml`):
 
 ```bash
-mkdir -p ~/DotConfig/lazygit/.config
-mv ~/.config/lazygit ~/DotConfig/lazygit/.config/
+mkdir -p ~/mac-dotfiles/lazygit/.config
+mv ~/.config/lazygit ~/mac-dotfiles/lazygit/.config/
 ```
 
 Then add `lazygit` to `ALL_PACKAGES` in `install.sh` and run `./install.sh lazygit`.
 A package's folder mirrors the paths under `$HOME`.
 
-**Removing a package's links.** `stow -D -d ~/DotConfig -t ~ <package>` removes the links and leaves the repo alone.
+**Removing a package's links.** `stow -D -d ~/mac-dotfiles -t ~ <package>` removes the links and leaves the repo alone.
 
-**Updating the Brewfile.** Add or remove lines by hand. To see what's missing on the current machine, run `brew bundle check --verbose --file=~/DotConfig/Brewfile`.
+**Updating the Brewfile.** Add or remove lines by hand. To see what's missing on the current machine, run `brew bundle check --verbose --file=~/mac-dotfiles/Brewfile`.
 
 ## Machine-specific settings (not tracked)
 
@@ -110,7 +113,7 @@ Some things shouldn't go in a public repo: your git identity, secrets, work host
   	email = you@example.com
   ```
 
-  Tip: to keep your real address out of public commits too, use your GitHub no-reply email (*Settings → Emails*).
+  Tip: to keep your real address out of public commits too, use your GitHub no-reply email (_Settings → Emails_).
 
 **Zed:** `settings.json` is tracked, so any SSH connections you add in Zed are written into this repo. Check `git diff` before you commit.
 

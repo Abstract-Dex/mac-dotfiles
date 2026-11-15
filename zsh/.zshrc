@@ -47,4 +47,6 @@ ts() {
 }
 
 # Machine-specific settings (secrets, work paths, conda, etc.) go here — not tracked.
-[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
+if [[ -f ~/.zshrc.local ]]; then
+  source ~/.zshrc.local
+fi
