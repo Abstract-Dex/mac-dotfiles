@@ -12,10 +12,10 @@ set -euo pipefail
 DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_NAME="$(basename "$DOTFILES")"
 BACKUP_DIR="$HOME/.dotfiles-backup/$(date +%Y%m%d-%H%M%S)"
-ALL_PACKAGES="aerospace fastfetch ghostty git nvim tmux zed zsh"
+ALL_PACKAGES="aerospace fastfetch ghostty git hex nvim tmux zed zsh"
 # Apps that write their own data next to their settings: link individual files
 # instead of the whole folder, so that data never lands inside this repo.
-NO_FOLD_PACKAGES="zed"
+NO_FOLD_PACKAGES="hex zed"
 
 DRY_RUN=0
 SKIP_BREW=0

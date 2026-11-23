@@ -15,6 +15,9 @@ One script sets up a new machine. Every config lives in this repo, and your home
 | `zed`       | Zed editor                                              | `~/.config/zed/settings.json`            |
 | `git`       | git (name/email stay in untracked `~/.gitconfig.local`) | `~/.gitconfig`, `~/.gitignore_global`    |
 | `fastfetch` | fastfetch                                               | `~/.config/fastfetch/`                   |
+| `hex`       | Hex dictation (modes, AI cleanup prompts, vocabulary)   | `~/Library/Application Support/hex/settings.json` |
+
+Hex's AI cleanup runs through OpenCode 2, which isn't in this repo. On a new Mac, install it from [opencode.ai](https://opencode.ai) and run `opencode auth login` to add your Anthropic key.
 
 Other files:
 

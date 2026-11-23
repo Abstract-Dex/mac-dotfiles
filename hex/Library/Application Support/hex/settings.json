@@ -1,0 +1,418 @@
+{
+  "release_microphone_while_idle": true,
+  "sound_effects": true,
+  "sound_effect_volume": 0.25,
+  "sound_theme": "soft",
+  "microphone": "Rajdeep’s AirPods Pro",
+  "avoid_bluetooth_microphone": true,
+  "recording_audio_behavior": "do_nothing",
+  "recording_duck_volume": 0.2,
+  "pause_browser_media": false,
+  "double_tap_lock": false,
+  "double_tap_only": false,
+  "shortcut_mode": "hold",
+  "dictation_hotkey": {
+    "keys": [
+      {
+        "modifier": "fn"
+      }
+    ]
+  },
+  "paste_last_hotkey": {
+    "keys": [
+      {
+        "modifier": "option",
+        "side": "any"
+      },
+      {
+        "modifier": "shift",
+        "side": "any"
+      },
+      {
+        "code": 9,
+        "label": "V"
+      }
+    ]
+  },
+  "cancel_hotkey": {
+    "keys": [
+      {
+        "code": 53,
+        "label": "Esc"
+      }
+    ]
+  },
+  "raw_dictation_hotkey": null,
+  "typed_text_hotkey": null,
+  "second_dictation_hotkey": null,
+  "extra_dictation_hotkeys": [],
+  "terminal_paste_hotkey": null,
+  "show_dock_icon": false,
+  "transcription": {
+    "model": "cohere_transcribe",
+    "language": "en"
+  },
+  "transcription_device": "auto",
+  "transcription_recents": [
+    {
+      "model": "parakeet_unified_en",
+      "language": "en"
+    },
+    {
+      "model": "cohere_transcribe",
+      "language": "en"
+    }
+  ],
+  "keyboard_model_switching": {
+    "enabled": false,
+    "mappings": {}
+  },
+  "dictation_processing": {
+    "default_mode": {
+      "name": "Global",
+      "applications": [],
+      "browser_hosts": [],
+      "replacements": [],
+      "transformations": [],
+      "post_processing": {
+        "enabled": true,
+        "prompt": "You clean up raw speech-to-text dictation. Output only the final text the speaker meant to write.\n\nRules:\n- Delete filler words (um, uh, like, you know, so, I mean) when they carry no meaning.\n- Self-corrections: when the speaker abandons a phrase or corrects themselves (\"no wait\", \"actually\", \"I mean\", \"scratch that\", \"let me rephrase\", trailing half-sentences), drop the abandoned part AND the correction cue, keep only the final version.\n- Stutters and repeats: when a word, syllable, or short phrase is repeated unintentionally (\"I I I think\", \"the the\", \"we sh- we should\", \"can you can you\"), keep it only once. Keep repetition that is clearly intentional for emphasis (\"very very good\", \"no no no\").\n- Never add phrases the speaker didn't say, never add dashes or ellipses for hesitation.\n- Keep it casual and in the speaker's own words and voice. Don't make it formal, don't summarize, don't add or remove ideas.\n- Fix punctuation, capitalization, and obvious mis-hearings. Spell names and terms exactly as in the vocabulary.\n- The speaker has an Indian English accent. Use context to fix words the transcriber misheard because of accent (e.g. v/w, t/d, vowel swaps, Indian names and places split into pieces like \"Raj Deep\" for \"Rajdeep\"). Keep Indian English phrasing as spoken; don't Americanize it.\n- No quotes, no preamble, no explanation.\n\nExample\nInput: Um, so I I was thinking, uh, we we should, no wait, let's move the meeting to Friday because, like, I'm busy.\nOutput: Let's move the meeting to Friday because I'm busy.",
+        "model": "anthropic/claude-haiku-5-5",
+        "variant": null,
+        "deadline_seconds": 30
+      }
+    },
+    "modes": [
+      {
+        "name": "Coding",
+        "applications": [
+          "Cursor",
+          "Code",
+          "Visual Studio Code",
+          "T3 Code (Nightly)",
+          "T3 Code",
+          "Ghostty",
+          "Terminal",
+          "Claude",
+          "Rex",
+          "Rex Beta",
+          "Zed",
+          "Grok Bot"
+        ],
+        "browser_hosts": [
+          "github.com"
+        ],
+        "replacements": [],
+        "transformations": [],
+        "post_processing": {
+          "enabled": true,
+          "prompt": "You clean up raw speech-to-text dictation. Output only the final text the speaker meant to write.\n\nRules:\n- Delete filler words (um, uh, like, you know, so, I mean) when they carry no meaning.\n- Self-corrections: when the speaker abandons a phrase or corrects themselves (\"no wait\", \"actually\", \"I mean\", \"scratch that\", \"let me rephrase\", trailing half-sentences), drop the abandoned part AND the correction cue, keep only the final version.\n- Stutters and repeats: when a word, syllable, or short phrase is repeated unintentionally (\"I I I think\", \"the the\", \"we sh- we should\", \"can you can you\"), keep it only once. Keep repetition that is clearly intentional for emphasis (\"very very good\", \"no no no\").\n- Never add phrases the speaker didn't say, never add dashes or ellipses for hesitation.\n- Keep it casual and in the speaker's own words and voice. Don't make it formal, don't summarize, don't add or remove ideas.\n- Fix punctuation, capitalization, and obvious mis-hearings. Spell names and terms exactly as in the vocabulary.\n- The speaker has an Indian English accent. Use context to fix words the transcriber misheard because of accent (e.g. v/w, t/d, vowel swaps, Indian names and places split into pieces like \"Raj Deep\" for \"Rajdeep\"). Keep Indian English phrasing as spoken; don't Americanize it.\n- No quotes, no preamble, no explanation.\n\nExample\nInput: Um, so I I was thinking, uh, we we should, no wait, let's move the meeting to Friday because, like, I'm busy.\nOutput: Let's move the meeting to Friday because I'm busy.\n\nCoding context: the speaker is a software/AI engineer dictating in a coding tool (editor, terminal, or AI coding assistant). In addition to the rules above:\n- Spell technical terms, libraries, tools, and acronyms the way developers write them: Python, Go, FastAPI, PyTorch, Hugging Face, LangChain, LangGraph, Postgres, MySQL, Redis, Spark, Linux, AWS, Docker, Proxmox, Kubernetes, GitHub, git, npm, pnpm, JSON, YAML, API, CLI, SSH, LLM, RAG, vLLM, Qwen, Tailscale, tmux, zsh, Vim, OpenCode, Claude, Cursor.\n- Write code identifiers in their natural form: \"snake case user id\" -> user_id, \"camel case get user\" -> getUser, \"dot env\" -> .env, \"slash api slash users\" -> /api/users, \"dash dash help\" -> --help.\n- Wrap file names, commands, function names, variables and flags in backticks only when the speaker is clearly referring to code (e.g. \"rename the get user function\" -> rename the `getUser` function).\n- Keep instructions to an AI assistant as clear, direct sentences; don't turn them into code blocks unless dictated as code.",
+          "model": "anthropic/claude-haiku-5-5",
+          "variant": null,
+          "deadline_seconds": 30
+        },
+        "vocabulary": [
+          "FastAPI",
+          "PyTorch",
+          "Hugging Face",
+          "LangChain",
+          "LangGraph",
+          "Postgres",
+          "MySQL",
+          "Redis",
+          "Kubernetes",
+          "Proxmox",
+          "Tailscale",
+          "vLLM",
+          "Qwen",
+          "OpenCode",
+          "tmux",
+          "zsh",
+          "Ghostty",
+          "AeroSpace",
+          "Raycast",
+          "Obsidian",
+          "Zitadel",
+          "Valkey",
+          "ElastiCache",
+          "DeepInfra",
+          "GitHub",
+          "pnpm",
+          "YAML",
+          "JSON",
+          "LLM",
+          "RAG",
+          "async",
+          "await",
+          "kwargs",
+          "stdout",
+          "stderr",
+          "localhost",
+          "devbox",
+          "Vera",
+          {
+            "term": "Pydantic",
+            "sounds_like": [
+              "pedantic",
+              "pi dantic"
+            ]
+          },
+          {
+            "term": "Uvicorn",
+            "sounds_like": [
+              "you've a corn",
+              "uvi corn",
+              "unicorn"
+            ]
+          },
+          {
+            "term": "Nginx",
+            "sounds_like": [
+              "engine x",
+              "engine X"
+            ]
+          },
+          {
+            "term": "SQLAlchemy",
+            "sounds_like": [
+              "sequel alchemy",
+              "SQL alchemy"
+            ]
+          },
+          {
+            "term": "kubectl",
+            "sounds_like": [
+              "cube control",
+              "cube cuddle",
+              "cube CTL"
+            ]
+          },
+          {
+            "term": "PostgreSQL",
+            "sounds_like": [
+              "post gress",
+              "postgres QL",
+              "post gray sequel"
+            ]
+          },
+          {
+            "term": "Docker Compose",
+            "sounds_like": [
+              "docker compost"
+            ]
+          },
+          {
+            "term": "repo",
+            "sounds_like": [
+              "ripo",
+              "rapo"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "history_retention": "week",
+  "meetings": {
+    "enabled": false,
+    "output_folder": null,
+    "summaries": "mac",
+    "show_recording_indicator": true,
+    "recording_indicator_corner": "top_right",
+    "providers": [],
+    "calendar": {
+      "connected": false,
+      "excluded_calendars": [],
+      "remind": true,
+      "lead_minutes": 1
+    }
+  },
+  "capture": {
+    "enabled": true,
+    "hotkey": {
+      "keys": [
+        {
+          "modifier": "option",
+          "side": "any"
+        },
+        {
+          "modifier": "shift",
+          "side": "any"
+        },
+        {
+          "code": 1,
+          "label": "S"
+        }
+      ]
+    },
+    "replay_hotkey": null,
+    "transcriber": "parakeet",
+    "folder": null,
+    "media_days": 7,
+    "bundle_days": 30,
+    "routing": {
+      "autoSend": "rules",
+      "undoWindowSec": null,
+      "sites": {},
+      "apps": {},
+      "servers": {},
+      "aliases": {},
+      "refusedRules": [],
+      "delivery": "steer",
+      "smartRouting": false,
+      "jevRouting": false,
+      "jev": null,
+      "jevApiKey": null,
+      "agentHost": null,
+      "agentOpencode": null,
+      "sendCaptures": true
+    },
+    "show_overlays_in_recordings": false,
+    "capsule_flow": "list"
+  },
+  "experimental": {
+    "hex_microphone": false,
+    "hex_microphone_mode": "muffled",
+    "hex_microphone_comfort_noise": true,
+    "hex_microphone_strength": 1.0
+  },
+  "labs": {
+    "live_text": false,
+    "failure_notices": false,
+    "live_typing": false,
+    "live_chapters": false,
+    "playground": false,
+    "vocabulary_biasing": true,
+    "mouse_shortcuts": false,
+    "unload_idle": false,
+    "unload_idle_minutes": 15,
+    "restore_shortcut_default": false,
+    "keep_on_clipboard": true,
+    "copy_only": false,
+    "return_to_app": false,
+    "spoken_formatting": true,
+    "filler_words": true,
+    "subtitle_export": false,
+    "second_dictation_shortcut": false,
+    "more_dictation_shortcuts": false,
+    "terminal_paste_shortcut": false,
+    "smart_spacing": true,
+    "spoken_symbols": true,
+    "picker_sort_filter": false,
+    "sided_modifier_chords": false,
+    "tap_or_hold": false,
+    "double_tap_modifiers": false,
+    "benchmark_details": false,
+    "parakeet_ultra": false,
+    "standalone_special_keys": false,
+    "history_stats": true,
+    "recent_dictations": false,
+    "skip_pauses": false,
+    "stop_when_call_ends": false,
+    "output_fixes": true,
+    "picker_active_first": false,
+    "model_in_place": false,
+    "picker_downloaded": false,
+    "section_key_alone": false,
+    "keep_recordings": false,
+    "settings_search": false,
+    "release_notes_link": false,
+    "hide_menu_bar_icon": false,
+    "quit_closes_window": false,
+    "caps_lock_dictation": false,
+    "caps_lock_light": "steady",
+    "appearance": false,
+    "appearance_theme": "system",
+    "movable_meeting_capsules": false,
+    "gnome_clipboard_restore": false,
+    "typed_text": false,
+    "meeting_notes_vocabulary": false,
+    "notch_indicator": false,
+    "meeting_finished_event": false,
+    "gnome_meeting_capsules": false,
+    "gnome_annotate": false,
+    "screenshots": false,
+    "follow_live_transcript": false,
+    "meeting_import": false,
+    "meeting_descriptive_filenames": false,
+    "meeting_notes_file": false,
+    "expire_meeting_audio": false,
+    "annotate_replay": false,
+    "more_call_apps": false,
+    "opencode_in_wsl": false,
+    "transcribe_files": false,
+    "api_processing": false,
+    "api_timestamps": false,
+    "speakers_only": false,
+    "app_model_switching": false,
+    "pause_menu": false,
+    "groups": {
+      "history": true,
+      "models": true
+    }
+  },
+  "screenshots": {
+    "hotkey": {
+      "keys": [
+        {
+          "modifier": "shift",
+          "side": "any"
+        },
+        {
+          "modifier": "command",
+          "side": "any"
+        },
+        {
+          "code": 21,
+          "label": "4"
+        }
+      ]
+    },
+    "record_hotkey": null,
+    "folder": null
+  },
+  "enable_on_launch": true,
+  "paste_with_shift": false,
+  "gnome_keyboard_shortcuts": false,
+  "share_dictation_shortcut": false,
+  "ui_language": null,
+  "indicator_position": "bottom",
+  "updates": {
+    "channel": "stable"
+  },
+  "vocabulary": [
+    {
+      "term": "Rajdeep",
+      "sounds_like": [
+        "Raj deep",
+        "Rajdip",
+        "Raj dip",
+        "Rajadeep",
+        "Raaj deep",
+        "Rush deep",
+        "Raj the"
+      ]
+    },
+    {
+      "term": "Basu",
+      "sounds_like": [
+        "Basoo",
+        "Bosu",
+        "Boshu",
+        "Bose you"
+      ]
+    }
+  ],
+  "vocabulary_boost": "normal",
+  "migrations": [
+    "streaming-english-model",
+    "annotate-on-by-default",
+    "anomaly-hex-identity",
+    "meeting-retention-default",
+    "meeting-summaries-choice",
+    "scrawl-capture-settings",
+    "scrawl-routing-settings",
+    "meeting-labs-settings",
+    "yearly-stats-merge"
+  ]
+}
