@@ -1,0 +1,16 @@
+-- Rex (Superlogical) config: https://www.superlogical.com/rex/docs
+-- Reload after editing:  rex config reload    Check it:  rex config check
+--
+-- Sessions survive quitting the app and restarting the Mac without any setting here:
+--   * Quitting the Rex app leaves the Rex server, and every program in its sessions, running.
+--   * The server saves its sessions when it stops (app update, `rex server stop`, logout or
+--     shutdown) and restores them on the next start: sessions, tabs, splits, labels, IDs and
+--     each terminal's folder. Programs and scrollback are not restored; each terminal comes
+--     back as a fresh shell.
+--   * Claude Code is resumed in those fresh shells by ~/.config/rex/claude-resume.zsh
+--     (sourced from zsh), using Claude's own `claude --resume <id>` / `claude --continue`.
+--   * Don't run `rex server stop --discard` or start the server with `--restore=false`:
+--     both throw the saved sessions away.
+
+-- Keybindings (rex.bind / rex.unbind) and custom actions (rex.action) go here.
+-- See https://www.superlogical.com/rex/docs/customize/keyboard-shortcuts

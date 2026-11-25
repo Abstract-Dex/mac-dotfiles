@@ -12,6 +12,7 @@ One script sets up a new machine. Every config lives in this repo, and your home
 | `nvim`      | Neovim ([LazyVim](https://lazyvim.org))                 | `~/.config/nvim/`                        |
 | `ghostty`   | Ghostty terminal + Catppuccin Midnight                  | `~/.config/ghostty/`                     |
 | `aerospace` | AeroSpace tiling window manager                         | `~/.aerospace.toml`                      |
+| `rex`       | Rex terminal (Superlogical) + Claude Code auto-resume   | `~/.config/rex/`                         |
 | `zed`       | Zed editor                                              | `~/.config/zed/settings.json`            |
 | `git`       | git (name/email stay in untracked `~/.gitconfig.local`) | `~/.gitconfig`, `~/.gitignore_global`    |
 | `fastfetch` | fastfetch                                               | `~/.config/fastfetch/`                   |
@@ -99,6 +100,22 @@ A package's folder mirrors the paths under `$HOME`.
 **Removing a package's links.** `stow -D -d ~/mac-dotfiles -t ~ <package>` removes the links and leaves the repo alone.
 
 **Updating the Brewfile.** Add or remove lines by hand. To see what's missing on the current machine, run `brew bundle check --verbose --file=~/mac-dotfiles/Brewfile`.
+
+## Rex sessions and Claude Code
+
+Rex keeps its sessions on a server, separate from the app:
+
+- **Quitting the Rex app** leaves the server running, so every pane, including Claude Code, keeps going. Reopen Rex and you're back where you were.
+- **Restarting the Mac, updating Rex, or `rex server stop`** saves the sessions, and the next server start restores them: sessions, tabs, splits, labels and each pane's folder. Programs and scrollback don't come back; each pane opens a fresh shell.
+- **Claude Code comes back on its own.** `~/.config/rex/claude-resume.zsh` notes which pane was running Claude and which conversation. When the restored pane's shell starts, it runs `claude --resume <id>` (or `claude --continue` if that conversation can't be found). Exiting Claude normally stops it coming back. `REX_CLAUDE_RESUME=0` turns this off, and `rex-claude-forget` clears the current pane.
+
+The helper is loaded at the end of `.zshrc` with this line:
+
+```zsh
+[[ -r ~/.config/rex/claude-resume.zsh ]] && source ~/.config/rex/claude-resume.zsh
+```
+
+Don't use `rex server stop --discard` or `--restore=false` unless you want to throw the saved sessions away.
 
 ## Machine-specific settings (not tracked)
 

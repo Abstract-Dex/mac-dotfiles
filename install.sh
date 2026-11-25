@@ -12,7 +12,7 @@ set -euo pipefail
 DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_NAME="$(basename "$DOTFILES")"
 BACKUP_DIR="$HOME/.dotfiles-backup/$(date +%Y%m%d-%H%M%S)"
-ALL_PACKAGES="aerospace fastfetch ghostty git nvim tmux zed zsh"
+ALL_PACKAGES="aerospace fastfetch ghostty git nvim rex tmux zed zsh"
 # Apps that write their own data next to their settings: link individual files
 # instead of the whole folder, so that data never lands inside this repo.
 NO_FOLD_PACKAGES="zed"
@@ -187,6 +187,6 @@ cat <<'EOF'
     • Open a new terminal (or `exec zsh`) to load the shell config.
     • tmux installs its plugins automatically the first time it starts.
     • nvim installs LazyVim + plugins the first time it starts.
-    • AeroSpace / Ghostty / Zed pick up their config on next launch.
+    • AeroSpace / Ghostty / Zed pick up their config on next launch; Rex: `rex config reload`.
     • Machine-only settings go in ~/.zshrc.local and ~/.gitconfig.local (not tracked).
 EOF

@@ -53,3 +53,6 @@ fi
 
 # opencode
 export PATH=/Users/rajdeep/.opencode/bin:$PATH
+
+# Rex: resume Claude Code in panes that Rex restores (see README "Rex sessions and Claude Code")
+[[ -r ~/.config/rex/claude-resume.zsh ]] && source ~/.config/rex/claude-resume.zsh
