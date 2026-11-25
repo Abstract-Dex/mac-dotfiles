@@ -1,5 +1,5 @@
 # Catppuccin Midnight — Catppuccin Mocha one step darker, readability-tuned.
-# Used by Ghostty (and matches the T3 Code + Neovim themes).
+# Used by Ghostty (and matches the Neovim theme).
 background = #16161f
 foreground = #dfe5f7
 cursor-color = #f5e0dc

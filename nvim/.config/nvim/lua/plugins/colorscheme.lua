@@ -1,4 +1,4 @@
--- Catppuccin Mocha, one step darker — matches the Ghostty + T3 Code "Catppuccin Midnight" theme.
+-- Catppuccin Mocha, one step darker — matches the Ghostty "Catppuccin Midnight" theme.
 return {
   {
     "catppuccin/nvim",

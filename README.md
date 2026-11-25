@@ -21,7 +21,7 @@ Other files:
 - `Brewfile` lists every Homebrew formula, cask, font and app the setup uses.
 - `install.sh` does the whole setup: dependencies, frameworks, backups and symlinks.
 
-Neovim, Ghostty and the T3 Code app all use the same **Catppuccin Midnight** palette, a slightly darker Catppuccin Mocha.
+Neovim and Ghostty both use the same **Catppuccin Midnight** palette, a slightly darker Catppuccin Mocha.
 
 ## Setting up a new Mac
 
