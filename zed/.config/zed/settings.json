@@ -7,6 +7,13 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "ssh_connections": [
+    {
+      "host": "192.168.1.231",
+      "args": [],
+      "projects": []
+    }
+  ],
   "project_panel": {
     "dock": "left"
   },
@@ -55,8 +62,8 @@
     ]
   },
   "base_keymap": "VSCode",
-  "ui_font_size": 16,
-  "buffer_font_size": 14.0,
+  "ui_font_size": 16.0,
+  "buffer_font_size": 15.0,
   "theme": {
     "mode": "dark",
     "light": "One Light",

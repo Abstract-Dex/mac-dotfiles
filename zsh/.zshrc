@@ -50,3 +50,6 @@ ts() {
 if [[ -f ~/.zshrc.local ]]; then
   source ~/.zshrc.local
 fi
+
+# opencode
+export PATH=/Users/rajdeep/.opencode/bin:$PATH
