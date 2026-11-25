@@ -14,7 +14,7 @@ after-startup-command = [
 ]
 
 # Start AeroSpace at login
-start-at-login = true
+start-at-login = false
 
 # Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
 enable-normalization-flatten-containers = true
@@ -79,18 +79,22 @@ if.app-id = 'com.apple.MobileSMS'
 run = 'layout floating'
 
 [[on-window-detected]]
+if.app-id = 'com.bitwarden.desktop'
+run = 'layout floating'
+
+[[on-window-detected]]
 if.app-id = 'com.google.Chrome'
-run = 'move-node-to-workspace 6'
+run = 'move-node-to-workspace 7'
 
 # Spotify
 [[on-window-detected]]
 if.app-id = 'com.spotify.client'
 if.app-name-regex-substring = 'Spotify'
-run = 'move-node-to-workspace 4'
+run = 'move-node-to-workspace 5'
 
 [[on-window-detected]]
 if.app-id = 'com.todesktop.230313mzl4w4u92'
-run = 'move-node-to-workspace 3'
+run = 'move-node-to-workspace 4'
 
 [[on-window-detected]]
 if.app-id = 'com.mitchellh.ghostty'
@@ -99,7 +103,7 @@ run = 'layout floating'
 
 [[on-window-detected]]
 if.app-id = 'com.hnc.Discord'
-run = 'move-node-to-workspace 7'
+run = 'move-node-to-workspace 8'
 
 # Zen Browser
 [[on-window-detected]]
@@ -110,23 +114,28 @@ run = 'move-node-to-workspace 1'
 [[on-window-detected]]
 if.app-id = 'md.obsidian'
 if.app-name-regex-substring = 'Obsidian'
-run = 'move-node-to-workspace 8'
+run = 'move-node-to-workspace 9'
 
 # Visual Studio Code
 [[on-window-detected]]
 if.app-id = 'com.microsoft.VSCode'
 if.app-name-regex-substring = 'Visual Studio Code'
-run = 'move-node-to-workspace 3'
+run = 'move-node-to-workspace 4'
+
+# Rex (Superlogical terminal): tiled, always on workspace 2
+[[on-window-detected]]
+if.app-id = 'com.superlogical.rex'
+run = 'move-node-to-workspace 2'
 
 # Claude
 [[on-window-detected]]
 if.app-id = 'com.anthropic.claudefordesktop'
-run = 'move-node-to-workspace 2'
+run = 'move-node-to-workspace 3'
 
 # Grok Bot
 [[on-window-detected]]
 if.app-id = 'com.anysphere.sand'
-run = 'move-node-to-workspace 5'
+run = 'move-node-to-workspace 6'
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
